@@ -1,0 +1,31 @@
+rrt_star_planner:
+  ros__parameters:
+    # ── RRT* algorithm ────────────────────────────────────────────────────
+    max_iterations: 2000          # Planning iterations (increase for complex envs)
+    step_size: 5.0                # Tree-extension step size (meters)
+    goal_tolerance: 3.0           # Goal acceptance radius (meters)
+    search_radius: 15.0           # RRT* rewiring neighbourhood radius (meters)
+    planning_horizon: 100.0       # Look-ahead planning distance (meters)
+
+    # ── Kinodynamic constraints (15ft wingspan UAV) ───────────────────────
+    min_turn_radius: 20.0         # Minimum turn radius (meters)
+    obstacle_clearance: 3.0       # Base safety margin (meters); doubled for dynamic threats
+    max_climb_angle: 20.0         # Maximum climb/dive angle (degrees)
+
+    # ── Performance ───────────────────────────────────────────────────────
+    replan_rate: 1.0              # Replanning frequency (Hz)
+
+    # ── Dynamic obstacle handling ─────────────────────────────────────────
+    # If the tracked obstacle's closing speed exceeds this threshold (m/s),
+    # obstacle_clearance is doubled automatically.
+    dynamic_threat_speed: 2.0
+
+    # ── Costmap integration ───────────────────────────────────────────────
+    # Cells with cost >= costmap_lethal_cost are treated as impassable.
+    costmap_lethal_cost: 70
+
+    # ── Tuning notes ──────────────────────────────────────────────────────
+    # - Raise max_iterations (→ 5000) for denser obstacle environments
+    # - Lower step_size (→ 3.0 m) for tighter corridors
+    # - Raise search_radius (→ 25.0 m) for smoother paths
+    # - Lower replan_rate (→ 0.5 Hz) on compute-constrained hardware

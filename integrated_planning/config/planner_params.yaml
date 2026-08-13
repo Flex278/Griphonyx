@@ -1,0 +1,39 @@
+integrated_planner_node:
+  ros__parameters:
+    # Map configuration
+    map_size_x: 100.0
+    map_size_y: 100.0
+    map_size_z: 50.0
+    map_resolution: 1.0
+
+    # Vehicle constraints
+    vehicle_min_altitude: 5.0
+    vehicle_max_altitude: 120.0
+    vehicle_length: 1.8
+    vehicle_width: 1.2
+    vehicle_height: 0.6
+    vehicle_inflation: 0.35
+    min_turn_radius: 4.0
+    hover_step: 2.0
+    cruise_step: 3.0
+
+    # Planning parameters
+    max_iterations: 80000
+    preferred_mode: "hover"
+    allow_cruise: true
+    replan_on_obstacle: true
+    emergency_replan_distance: 3.0
+    obstacle_inflation: 0.5
+    replan_distance_threshold: 10.0
+
+    # Performance
+    planning_timeout: 5.0
+
+obstacle_map_bridge:
+  ros__parameters:
+    map_size_x: 100.0
+    map_size_y: 100.0
+    map_size_z: 50.0
+    map_resolution: 1.0
+    obstacle_inflation: 0.5
+    update_rate: 10.0

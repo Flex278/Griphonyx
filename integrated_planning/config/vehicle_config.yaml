@@ -1,0 +1,19 @@
+vehicle:
+  # Physical dimensions (meters)
+  length: 1.8
+  width: 1.2
+  height: 0.6
+  rotor_diameter: 0.5
+
+  # Safety margins
+  inflation: 0.35
+  min_clearance: 2.0
+
+  # Altitude constraints
+  min_altitude: 5.0
+  max_altitude: 120.0
+
+  # Motion constraints
+  min_turn_radius: 3.0
+  hover_step: 1.0
+  cruise_step: 2.0
