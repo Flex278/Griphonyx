@@ -9,8 +9,8 @@
   4. integrated_planner    — Координирует глобальный путь A* с зонным обходом
 
 Использование:
-    ros2 launch full_system.launch.py
-    ros2 launch full_system.launch.py use_sim_time:=false
+    ros2 launch integrated_planning full_system.launch.py
+    ros2 launch integrated_planning full_system.launch.py use_sim_time:=false
 
 Поток топиков:
     /scan / /lidar/points → obstacle_detector → /avoidance_command, /obstacle_velocity,

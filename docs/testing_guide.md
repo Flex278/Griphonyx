@@ -44,8 +44,8 @@ ros2 topic info /lidar/points
 cd ~/ros2_ws/src
 
 # Клонируйте этот репозиторий
-git clone <url-вашего-репозитория> griphonyx
-cd griphonyx
+git clone <url-вашего-репозитория> Griphonyx
+cd Griphonyx
 
 # Установите зависимости Python
 pip install -r requirements.txt
@@ -61,7 +61,7 @@ source install/setup.bash
 Если имя вашего топика LiDAR отличается, отредактируйте файл конфигурации:
 
 ```bash
-nano ~/ros2_ws/src/griphonyx/obstacle_detection/config/params.yaml
+nano ~/ros2_ws/src/Griphonyx/obstacle_detection/config/params.yaml
 ```
 
 Измените `lidar_topic` на имя вашего топика.

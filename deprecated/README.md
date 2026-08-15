@@ -31,5 +31,5 @@
 cp -r deprecated/rrt_star_planner ./
 ```
 
-Затем обновите `costmap/launch/full_stack.launch.py` и `launch/full_system.launch.py`,
+Затем обновите `costmap/launch/full_stack.launch.py` и `integrated_planning/launch/full_system.launch.py`,
 чтобы использовать `rrt_star_planner` вместо `astar_planner`.

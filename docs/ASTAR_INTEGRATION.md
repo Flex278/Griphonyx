@@ -135,7 +135,7 @@ astar_planner:
 2. Обновите `costmap/launch/full_stack.launch.py` — замените ноду `astar_planner`
    на ноду `rrt_star_planner`.
 
-3. Обновите `launch/full_system.launch.py` — замените ноду `astar_planner`.
+3. Обновите `integrated_planning/launch/full_system.launch.py` — замените ноду `astar_planner`.
 
 4. Формат вывода топика `/planned_path` идентичен (`nav_msgs/Path`),
    поэтому нижестоящим потребителям не требуется никаких изменений.
@@ -154,7 +154,7 @@ python -m pytest tests/ -v
 Полный системный тест (требуется ROS 2 + Gazebo):
 
 ```bash
-ros2 launch launch/full_system.launch.py
+ros2 launch integrated_planning full_system.launch.py
 ros2 topic echo /planned_path
 ros2 topic echo /astar_planner/status
 ```

@@ -52,7 +52,7 @@ LiDAR → obstacle_detector → /avoidance_command, /obstacle_velocity
 ##  Структура проекта
 
 ```
-griphonyx/
+Griphonyx/
 ├── obstacle_detection/          # Пакет ROS 2 обнаружения препятствий
 │   ├── obstacle_detection/
 │   │   ├── __init__.py
@@ -79,11 +79,11 @@ griphonyx/
 │   └── setup.cfg
 ├── costmap/                     # Пакет ROS 2 карты стоимости
 ├── integrated_planning/         # Модуль интегрированного планирования
+│   └── launch/
+│       └── full_system.launch.py    # Запуск полного стека
 ├── deprecated/
 │   ├── README.md                # Уведомление об устаревании
 │   └── rrt_star_planner/        # Заархивированный RRT* (не активен)
-├── launch/
-│   └── full_system.launch.py    # Запуск полного стека
 ├── config/
 │   └── integrated_system.yaml   # Единая конфигурация системы
 ├── context/
@@ -100,41 +100,57 @@ griphonyx/
 ### Необходимые компоненты
 
 - ROS 2 Humble (или новее)
-- PX4 Autopilot + симуляция Gazebo
+- PX4 Autopilot + симуляция Gazebo Classic
+- MicroXRCEAgent (для моста PX4 ↔ ROS2)
 - Python 3.8+
+- X11 (для Gazebo/RViz2), опционально NVIDIA GPU
 
 ### Установка
 
 1. **Клонирование репозитория:**
    ```bash
    cd ~/ros2_ws/src
-   git clone <https://github.com/Flex278/Griphonyx>
+   git clone https://github.com/Flex278/Griphonyx
    ```
 
 2. **Установка зависимостей:**
    ```bash
-   cd ~/ros2_ws/src/griphonyx
-   pip install -r requirements.txt
+   source /opt/ros/humble/setup.bash
+   cd ~/ros2_ws
+   pip3 install --upgrade pip
+   pip3 install -r src/Griphonyx/requirements.txt
    ```
+
+   На Ubuntu 22.04 (Humble) pip может выдать ошибку `externally-managed-environment` — тогда добавь `--break-system-packages` или используй venv.
 
 3. **Сборка пакетов:**
    ```bash
    cd ~/ros2_ws
-   colcon build --packages-select obstacle_detection costmap astar_planner integrated_planning
+   colcon build
    source install/setup.bash
+   ```
+
+   Выборочная сборка (опционально):
+   ```bash
+   colcon build --packages-select obstacle_detection costmap astar_planner integrated_planning
    ```
 
 ### Запуск ноды
 
-1. **Запуск PX4 + симуляции Gazebo:**
+1. **Запуск XRCE-DDS агента (мост PX4 ↔ ROS2):**
+   ```bash
+   MicroXRCEAgent udp4 -p 8888
+   ```
+
+2. **Запуск PX4 + симуляции Gazebo:**
    ```bash
    cd ~/PX4-Autopilot
    make px4_sitl gazebo-classic
    ```
 
-2. **Запуск полного стека (A* + обнаружение препятствий):**
+3. **Запуск полного стека (A* + обнаружение препятствий):**
    ```bash
-   ros2 launch full_system.launch.py
+   ros2 launch integrated_planning full_system.launch.py
    ```
 
    Или запуск отдельных компонентов:
@@ -144,12 +160,12 @@ griphonyx/
    ros2 launch astar_planner astar_planner.launch.py
    ```
 
-3. **Визуализация в RViz2:**
+4. **Визуализация в RViz2:**
    ```bash
    rviz2
    ```
-   ```bash
-   Gazebo```
+
+   Для Gazebo и RViz2 нужен X11-доступ (`$DISPLAY`, `/tmp/.X11-unix`). При наличии NVIDIA GPU можно ускорить рендеринг драйвером NVIDIA.
 
 ##  Конфигурация
 
